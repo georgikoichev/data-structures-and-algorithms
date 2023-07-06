@@ -3,6 +3,12 @@ package sortingAlgorithms;
 import java.util.Arrays;
 
 public class SortingAlgorithms {
+    public static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
     public static void bubbleSort(int[] arr) {
         bubbleSortHelper(arr, 1);
     }
@@ -11,9 +17,7 @@ public class SortingAlgorithms {
         if (i == arr.length) return;
 
         if (arr[i] < arr[i-1]) {
-            int temp = arr[i];
-            arr[i] = arr[i-1];
-            arr[i-1] = temp;
+            swap(arr, i, i-1);
 
             bubbleSortHelper(arr, 1);
         }
@@ -39,19 +43,40 @@ public class SortingAlgorithms {
         }
 
         if (arr[i] > min) {
-            int temp = arr[i];
-            arr[i] = arr[minIndex];
-            arr[minIndex] = temp;
+            swap(arr, i, minIndex);
         }
 
         selectionSortHelper(arr, ++i);
     }
 
+    public static void quickSort(int[] arr) {
+        quickSortHelper(arr, 0, arr.length - 1);
+    }
 
+    private static void quickSortHelper(int[] arr, int bottom, int top) {
+        if (bottom < top) {
+            int pivot = arr[top];
+
+            int i = bottom - 1;
+
+            for (int j = bottom; j <= top - 1; j++) {
+                if (arr[j] <= pivot) {
+                    i++;
+
+                    swap(arr, i, j);
+                }
+            }
+
+            swap(arr, i + 1, top);
+
+            quickSortHelper(arr, bottom, i);
+            quickSortHelper(arr, i + 2, top);
+        }
+    }
 
     public static void main(String[] args) {
-        int[] arr = {2, 7, 3, 5, 4, 6, 1};
-        selectionSort(arr);
+        int[] arr = {2, 7, 3, 5, 1, 6, 4};
+        quickSort(arr);
         System.out.println(Arrays.toString(arr));
     }
 }
