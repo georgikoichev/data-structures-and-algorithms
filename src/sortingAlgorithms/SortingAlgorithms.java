@@ -74,6 +74,24 @@ public class SortingAlgorithms {
         }
     }
 
+    public static void insertionSort(int[] arr) {
+        insertionSortHelper(arr, 1, 1);
+    }
+
+    private static void insertionSortHelper(int[] arr, int i, int j) {
+        if (i <= arr.length) {
+            if (arr[j] < arr[j-1]) {
+                swap(arr, j, j-1);
+                if (j == 1)
+                    insertionSortHelper(arr, i, i);
+                else
+                    insertionSortHelper(arr, i, --j);
+            }
+
+            insertionSortHelper(arr, ++i, ++j);
+        }
+    }
+
     public static void main(String[] args) {
         int[] arr = {2, 7, 3, 5, 1, 6, 4};
         quickSort(arr);
