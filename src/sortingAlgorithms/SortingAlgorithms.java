@@ -107,7 +107,7 @@ public class SortingAlgorithms {
                     maxIndex = j;
                 }
             }
-            swap(arr, maxIndex, arr[i]);
+            swap(arr, maxIndex, i);
 
             heapSortHelper(arr, --i);
         }
