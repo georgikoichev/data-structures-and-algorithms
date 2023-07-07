@@ -74,9 +74,48 @@ public class SortingAlgorithms {
         }
     }
 
+    public static void insertionSort(int[] arr) {
+        insertionSortHelper(arr, 1, 1);
+    }
+
+    private static void insertionSortHelper(int[] arr, int i, int j) {
+        if (i <= arr.length) {
+            if (arr[j] < arr[j-1]) {
+                swap(arr, j, j-1);
+                if (j == 1)
+                    insertionSortHelper(arr, i, i);
+                else
+                    insertionSortHelper(arr, i, --j);
+            }
+
+            insertionSortHelper(arr, ++i, ++j);
+        }
+    }
+
+    public static void heapSort(int[] arr) {
+        heapSortHelper(arr, arr.length-1);
+    }
+
+    private static void heapSortHelper(int[] arr, int i) {
+        if (i != 0) {
+            int max = -Integer.MAX_VALUE;
+            int maxIndex = 0;
+
+            for (int j = 0; j <= i; j++) {
+                if (arr[j] > max) {
+                    max = arr[j];
+                    maxIndex = j;
+                }
+            }
+            swap(arr, maxIndex, arr[i]);
+
+            heapSortHelper(arr, --i);
+        }
+    }
+
     public static void main(String[] args) {
         int[] arr = {2, 7, 3, 5, 1, 6, 4};
-        quickSort(arr);
+        heapSort(arr);
         System.out.println(Arrays.toString(arr));
     }
 }
